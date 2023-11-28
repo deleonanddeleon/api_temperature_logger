@@ -7,4 +7,4 @@ export DEBUG=1
 # run our server locally:
 PYTHONPATH=$(pwd):$PYTHONPATH
 # FLASK_APP=server.endpoints flask run --debug --host=127.0.0.1 --port=8000
-gunicorn --workers 3 --bind '0.0.0.0:5000' wsgi:app
+gunicorn --workers 3 --bind '0.0.0.0:5001' wsgi:app
