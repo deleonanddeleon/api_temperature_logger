@@ -33,13 +33,13 @@ def test_manage_records_post(client):
     assert 'message' in response.get_json()
 
 
-'''
 def test_manage_record_get(client):
-    response = client.get('/temperatures/records/1')
-    assert response.status_code == 404
+    response = client.get('/temperatures/records/5')
+    assert response.status_code == 200
     assert response.is_json
-    assert 'error' in response.get_json()
+    assert '_id' in response.get_json()[0]
 
+'''
 def test_manage_record_put(client):
     data = {'id': 5, 'stamp': 'test'}
     response = client.put('/temperatures/records/1', json=data)

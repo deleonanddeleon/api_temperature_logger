@@ -20,7 +20,8 @@ def index():
 def manage_records():
     if request.method == 'GET':
         # records = mongo.db.temperatures.find()
-        records = mongo.db.temperatures.find().sort({'_id': -1}).limit(num_records_get)
+        records = mongo.db.temperatures.find().sort(
+            {'_id': -1}).limit(num_records_get)
 
         # Convert ObjectId to string in each document and create a new list
         result = []
@@ -42,7 +43,10 @@ def manage_records():
 @app.route('/temperatures/records/<int:item_id>',
            methods=['GET', 'PUT', 'DELETE'])
 '''
-@app.route('/temperatures/records/<int:count>', methods=['GET'])
+
+
+@app.route('/temperatures/records/<int:count>',
+           methods=['GET'])
 def manage_record(count):
     records = mongo.db.temperatures.find().sort({'_id': -1}).limit(count)
 

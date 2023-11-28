@@ -5,7 +5,7 @@ export PYLINT_FLAGS = --exclude=__main__.py
 
 PYTHON_FILES = $(wildcard *.py)
 PYTEST_FLAGS = -vv --verbose --cov-branch --cov-report term-missing --tb=short -W ignore::FutureWarning
-PKG = api_isp_outage_logger
+PKG = api_temperature_logger
 REQ_DIR = .
 
 FORCE:
