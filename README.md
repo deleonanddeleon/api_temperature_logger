@@ -1,7 +1,7 @@
-# api_isp_outage_logger
-## ISP Outage Logger API in Python Flask with MongoDB
+# api_temperature_logger
+## Temperature Logger API in Python Flask with MongoDB
 
-- API for logging ISP outages, replaces json-server
+- API for logging temperature readings, replaces json-server
 - Gunicorn is a popular WSGI server for running Python web applications, and Flask is a lightweight web framework for Python. 
 - The Flask app runs in a virtual environment with a WSGI entry point
 - Gunicorn is bound to a network socket (Unix sockets do not appear to work with GCP)

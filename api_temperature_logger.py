@@ -7,6 +7,8 @@ app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/temperature_logger_db'
 mongo = PyMongo(app)
 
+num_records_get = 5
+
 
 @app.route('/temperatures')
 def index():
@@ -18,7 +20,7 @@ def index():
 def manage_records():
     if request.method == 'GET':
         # records = mongo.db.temperatures.find()
-        records = mongo.db.temperatures.find().sort({'_id': -1}).limit(5)
+        records = mongo.db.temperatures.find().sort({'_id': -1}).limit(num_records_get)
 
         # Convert ObjectId to string in each document and create a new list
         result = []
@@ -36,10 +38,24 @@ def manage_records():
 
 
 '''
-# Route to manage One Record
+# Route to manage n Records
 @app.route('/temperatures/records/<int:item_id>',
            methods=['GET', 'PUT', 'DELETE'])
-def manage_record(item_id):
+'''
+@app.route('/temperatures/records/<int:count>', methods=['GET'])
+def manage_record(count):
+    records = mongo.db.temperatures.find().sort({'_id': -1}).limit(count)
+
+    # Convert ObjectId to string in each document and create a new list
+    result = []
+    for record in records:
+        record['_id'] = str(record['_id'])
+        result.append(record)
+
+    # Use jsonify with the new list
+    return jsonify(result)
+
+    '''
     record = mongo.db.temperatures.find_one({'id': item_id})
     if not record:
         return jsonify({'error': 'Record not found'}), 404
@@ -61,7 +77,8 @@ def manage_record(item_id):
     elif request.method == 'DELETE':
         mongo.db.temperatures.delete_one({'id': item_id})
         return jsonify({'message': 'Item deleted'})
-'''
+    '''
+
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=5001, debug=True)
